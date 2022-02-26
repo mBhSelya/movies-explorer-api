@@ -23,7 +23,7 @@ mongoose.connect(DB_ADDRESS, {
 });
 
 app.use(cors({
-  origin: 'https://mesto.mbhselya.nomoredomains.xyz', // Когда создам домен подставить сюда!
+  origin: 'https://diplom.mhselya.nomoredomains.work',
   credentials: true,
 }));
 
