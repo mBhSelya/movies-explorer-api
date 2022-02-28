@@ -1,8 +1,7 @@
 const mongoose = require('mongoose');
+const validator = require('validator');
 
-const urlPattern = /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w.-]+)+[\w\-._~:/?#[\]@!$&\\'()*+,;=.]+$/;
-
-const cardSchema = new mongoose.Schema({
+const movieSchema = new mongoose.Schema({
   country: {
     type: String,
     required: true,
@@ -27,24 +26,30 @@ const cardSchema = new mongoose.Schema({
     type: String,
     required: true,
     validate: {
-      validator: (value) => urlPattern.test(value),
-      message: 'Поле "link" должно быть валидным url-адресом.',
+      validator(image) {
+        return validator.isURL(image);
+      },
+      message: 'Введён некорректный URL',
     },
   },
   trailerLink: {
     type: String,
     required: true,
     validate: {
-      validator: (value) => urlPattern.test(value),
-      message: 'Поле "link" должно быть валидным url-адресом.',
+      validator(trailerLink) {
+        return validator.isURL(trailerLink);
+      },
+      message: 'Введён некорректный URL',
     },
   },
   thumbnail: {
     type: String,
     required: true,
     validate: {
-      validator: (value) => urlPattern.test(value),
-      message: 'Поле "link" должно быть валидным url-адресом.',
+      validator(thumbnail) {
+        return validator.isURL(thumbnail);
+      },
+      message: 'Введён некорректный URL',
     },
   },
   owner: {
@@ -66,4 +71,4 @@ const cardSchema = new mongoose.Schema({
   },
 });
 
-module.exports = mongoose.model('card', cardSchema);
+module.exports = mongoose.model('movie', movieSchema);

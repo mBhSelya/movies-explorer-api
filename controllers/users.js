@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const User = require('../models/user');
+const devJWTSecret = require('../config');
 const NotFoundError = require('../errors/not-found-error');
 const BadRequestError = require('../errors/bad-request-error');
 const ConflictError = require('../errors/conflict-error');
@@ -10,7 +11,7 @@ const { NODE_ENV, JWT_SECRET } = process.env;
 function getMe(req, res, next) {
   return User
     .find(req.user)
-    .then((user) => res.status(200).send({ data: user }))
+    .then((user) => res.send({ data: user }))
     .catch(next);
 }
 
@@ -65,7 +66,7 @@ function login(req, res, next) {
     .then((user) => {
       const token = jwt.sign(
         { _id: user._id },
-        NODE_ENV === 'production' ? JWT_SECRET : 'some-some-secret-key',
+        NODE_ENV === 'production' ? JWT_SECRET : devJWTSecret,
         { expiresIn: '7d' },
       );
       res

@@ -6,7 +6,7 @@ const ForBiddenError = require('../errors/for-bidden-error');
 function getMovies(req, res, next) {
   return Movie
     .find({ owner: req.user._id })
-    .then((movies) => res.status(200).send(movies))
+    .then((movies) => res.send(movies))
     .catch(next);
 }
 
@@ -63,7 +63,7 @@ function deleteMovie(req, res, next) {
       if (movie.owner.equals(req.user._id)) {
         return movie.remove()
           .then(() => {
-            res.status(200).send({ message: 'Фильм успешно удален' });
+            res.send({ message: 'Фильм успешно удален' });
           });
       }
       return next(new ForBiddenError('Недостаточно прав для удаления этого фильма'));
