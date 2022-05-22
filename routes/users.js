@@ -15,6 +15,6 @@ router.post('/signup', validateCreateUser, createUser);
 
 router.get('/users/me', auth, getMe);
 router.patch('/users/me', auth, validateUpdateUser, updateUser);
-router.get('/signout', auth, logOut);
+router.get('/signout', logOut);
 
 module.exports = router;
