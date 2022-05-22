@@ -82,7 +82,11 @@ function login(req, res, next) {
 }
 
 function logOut(req, res) {
-  res.status(200).clearCookie('jwt').send({ message: 'Выход' });
+  res.status(200).clearCookie('jwt', {
+    httpOnly: true,
+    secure: true,
+    sameSite: 'None',
+  }).send({ message: 'Выход' });
 }
 
 module.exports = {
