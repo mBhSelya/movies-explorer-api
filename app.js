@@ -21,7 +21,7 @@ mongoose.connect((NODE_ENV === 'production' ? DB_ADDRESS : devDBAdress), {
 });
 
 app.use(cors({
-  origin: 'http://localhost:3000',
+  origin: 'https://diplom.mhselya.nomoredomains.work',
   credentials: true,
 }));
 
